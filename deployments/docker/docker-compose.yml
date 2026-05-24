@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: symbiont-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: symbiont
+      POSTGRES_USER: symbiont
+      POSTGRES_PASSWORD: symbiont
+    ports:
+      - "5432:5432"
+    volumes:
+      - symbiont-pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U symbiont -d symbiont"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Optional: pgAdmin for database inspection during development
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: symbiont-pgadmin
+    restart: unless-stopped
+    profiles: ["admin"]  # Only starts with: docker compose --profile admin up
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@symbiont.local
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  symbiont-pg-data:

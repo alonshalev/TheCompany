@@ -1,0 +1,23 @@
+# Go build artefacts
+/symbiont
+/bin/
+*.test
+*.out
+
+# Node / Vite
+web/node_modules/
+web/dist/
+web/.vite/
+
+# Secrets
+.env
+.env.local
+.env.*.local
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo

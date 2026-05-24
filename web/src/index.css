@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base overrides ──────────────────────────────────────────── */
+@layer base {
+  html, body, #root {
+    @apply h-full;
+  }
+  body {
+    @apply bg-canvas text-slate-100;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  * {
+    @apply border-canvas-border;
+  }
+  /* Thin scrollbars throughout */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-canvas;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-canvas-border rounded-full;
+  }
+}
+
+/* ── React Flow overrides ────────────────────────────────────── */
+.react-flow__background {
+  background-color: #0d0f14 !important;
+}
+.react-flow__edge-path {
+  stroke: #6366f1 !important;
+  stroke-width: 2 !important;
+}
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: #818cf8 !important;
+}
+.react-flow__handle {
+  background: #6366f1 !important;
+  border-color: #312e81 !important;
+}
+.react-flow__controls button {
+  @apply bg-canvas-elevated border-canvas-border text-slate-400;
+}
+.react-flow__minimap {
+  @apply bg-canvas-elevated border border-canvas-border rounded;
+}
