@@ -352,3 +352,4 @@ export default function TraceViewer({ projectID }: { projectID: string | null })
       )}
     </div>
   )
+}

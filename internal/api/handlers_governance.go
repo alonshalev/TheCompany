@@ -322,4 +322,30 @@ func (s *Server) handleVerifyAuditChain(w http.ResponseWriter, r *http.Request) 
 
 // writeAudit is a convenience wrapper used by handlers throughout the API
 // to record an audit event without having to construct the full entry.
-// projectI
+// projectID may be nil for org-level actions.
+func (s *Server) writeAudit(
+	r *http.Request,
+	actor auth.Actor,
+	projectID *uuid.UUID,
+	action string,
+	resourceType string,
+	resourceID *uuid.UUID,
+	outcome string,
+	detail map[string]any,
+) error {
+	rt := resourceType
+	entry := governance.AuditEntry{
+		OrgID:        actor.OrgID,
+		ProjectID:    projectID,
+		ActorType:    actor.Type,
+		ActorID:      &actor.UserID,
+		ActorName:    actor.Name,
+		Action:       action,
+		ResourceType: &rt,
+		ResourceID:   resourceID,
+		Outcome:      outcome,
+		Detail:       detail,
+	}
+	_, err := s.auditWriter.Write(r.Context(), entry)
+	return err
+}

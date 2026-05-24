@@ -254,4 +254,24 @@ func writeError(w http.ResponseWriter, status int, msg string) {
 	writeJSON(w, status, map[string]string{"error": msg})
 }
 
-func decodeJSON(r *http.Request
+func decodeJSON(r *http.Request, v any) error {
+	dec := json.NewDecoder(r.Body)
+	dec.DisallowUnknownFields()
+	return dec.Decode(v)
+}
+
+// requestLogger is a zerolog-based request logger middleware.
+func requestLogger(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+		ww := middleware.NewWrapResponseWriter(w, r.ProtoMajor)
+		next.ServeHTTP(ww, r)
+		log.Info().
+			Str("method", r.Method).
+			Str("path", r.URL.Path).
+			Int("status", ww.Status()).
+			Dur("ms", time.Since(start)).
+			Str("request_id", middleware.GetReqID(r.Context())).
+			Msg("http")
+	})
+}

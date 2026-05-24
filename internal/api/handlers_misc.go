@@ -155,4 +155,19 @@ func (s *Server) handleStreamRun(w http.ResponseWriter, r *http.Request)        
 // Memory handlers — implemented in handlers_memory.go (Part 3)
 func (s *Server) handleQueryMemory(w http.ResponseWriter, r *http.Request)       { s.handleQueryMemoryImpl(w, r) }
 func (s *Server) handleWriteMemory(w http.ResponseWriter, r *http.Request)       { s.handleWriteMemoryImpl(w, r) }
-func (s *Server) handleGetKnowledgeGraph(w http.ResponseWriter, r *http.Request) { s.handle
+func (s *Server) handleGetKnowledgeGraph(w http.ResponseWriter, r *http.Request) { s.handleGetKnowledgeGraphImpl(w, r) }
+
+// Governance handlers — implemented in handlers_governance.go (Part 6)
+// (handleGetBudgets, handleCreateBudget, handleUpdateBudget,
+//  handleListApprovals, handleResolveApproval,
+//  handleListAuditEvents, handleVerifyAuditChain are all defined there)
+
+// MCP server stubs (full implementation is a future Part)
+func (s *Server) handleListMCPServers(w http.ResponseWriter, r *http.Request)    { writeJSON(w, 200, map[string]any{"mcp_servers": []any{}}) }
+func (s *Server) handleRegisterMCPServer(w http.ResponseWriter, r *http.Request) { writeJSON(w, 501, map[string]string{"error": "not yet implemented"}) }
+func (s *Server) handleWebhookTrigger(w http.ResponseWriter, r *http.Request)    { s.handleWebhookTriggerImpl(w, r) }
+
+// Blueprint list — implemented in handlers_blueprints.go (Part 7)
+// handleListBlueprints is the org-scoped endpoint wired at GET /v1/blueprints.
+// The stub below existed in earlier parts; the real implementation is handleListBlueprintsImpl.
+func (s *Server) handleListBlueprints(w http.ResponseWriter, r *http.Request) { s.handleListBlueprintsImpl(w, r) }
