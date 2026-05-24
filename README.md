@@ -1,12 +1,12 @@
-# Symbiont — AI Agent Orchestration Platform
+# TheCompany — AI Agent Orchestration Platform
 
-Symbiont is an open platform for building, deploying, and managing autonomous AI agents and multi-agent workflows. It gives teams a single system to design intelligent pipelines visually, connect any major AI provider, enforce governance and budgets, and observe every execution in real time — without stitching together a dozen separate tools.
+TheCompany is an open platform for building, deploying, and managing autonomous AI agents and multi-agent workflows. It gives teams a single system to design intelligent pipelines visually, connect any major AI provider, enforce governance and budgets, and observe every execution in real time — without stitching together a dozen separate tools.
 
 ---
 
 ## What Is It For?
 
-| Use Case | How Symbiont Helps |
+| Use Case | How TheCompany Helps |
 |---|---|
 | **Autonomous research pipelines** | Chain Researcher → Analyst → Writer agents in a DAG workflow that runs on a schedule or webhook |
 | **Customer support automation** | Deploy the Support blueprint to handle, escalate, and log tickets with human approval gates |
@@ -95,7 +95,7 @@ Ready-made solution templates that spin up all required agents and workflows ato
 
 ```bash
 git clone https://github.com/alonshalev/TheCompany.git
-cd TheCompany/symbiont
+cd TheCompany
 cp .env.example .env
 # Edit .env — add at minimum your ANTHROPIC_API_KEY
 ```
@@ -143,7 +143,7 @@ This returns your API key. Open `http://localhost:5173`, enter the key, and you'
 ## Project Structure
 
 ```
-symbiont/
+thecompany/
 ├── cmd/symbiont/        # Entry point (server + migrate subcommands)
 ├── internal/
 │   ├── adapter/         # AI provider adapters (Anthropic, OpenAI, OpenRouter, Ollama)
